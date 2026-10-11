@@ -130,9 +130,9 @@ function draw() {
   background(255);
   if (!img_org || !img_org.width || !img_org.height) return;
 
-  let scale = min(width / img_org.width, height / img_org.height);
-  let w = img_org.width * scale;
-  let h = img_org.height * scale;
+  let imgScale = min(width / img_org.width, height / img_org.height);
+  let w = img_org.width * imgScale;
+  let h = img_org.height * imgScale;
   let x = (width - w) / 2;
   let y = (height - h) / 2;
 
@@ -160,9 +160,9 @@ function draw() {
   fill(circleColor);
 
   for (let py = y + spacing / 2; py < y + h; py += spacing) {
-    let iy = floor((py - y) / scale);
+    let iy = floor((py - y) / imgScale);
     for (let px = x + spacing / 2; px < x + w; px += spacing) {
-      let ix = floor((px - x) / scale);
+      let ix = floor((px - x) / imgScale);
       let index = (iy * img_org.width + ix) * 4;
       let gray = 0.299 * img_org.pixels[index] +
         0.587 * img_org.pixels[index + 1] +
