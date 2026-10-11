@@ -45,7 +45,8 @@ Then visit <http://localhost:8000>. (A server is required because p5's
 - `mySketch.js` — image loading, gray-range computation, dot rendering,
   and controls.
 - `style.css` — control panel styling (system font, vw-scaled controls).
-- `sw.js` — cache-first service worker for offline use. Bump
-  `CACHE_NAME` (e.g. `v1` → `v2`) whenever `mySketch.js`, `style.css`,
-  or `sw.js` change, or the page will serve stale assets.
+- `sw.js` — service worker, **network-first** fetch: fresh assets
+  whenever online, cached fallback when offline. The runtime cache
+  updates itself, so `CACHE_NAME` only needs bumping for structural
+  changes (e.g. renamed/removed cached files).
 - `manifest.json` — installable app metadata.
