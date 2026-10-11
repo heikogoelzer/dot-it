@@ -88,7 +88,7 @@ function makeGUI() {
 
   output = createButton('Save image');
   output.class('ui-button');
-  output.mousePressed(() => save(cnv, 'loudot.png'));
+  output.mousePressed(() => save(cnv, 'Dot-it.png'));
 
   toggleBg = createButton('Show');
   toggleBg.class('ui-button');

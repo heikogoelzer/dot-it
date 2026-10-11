@@ -1,6 +1,6 @@
 {
-  "name": "LouDot",
-  "short_name": "LouDot",
+  "name": "Dot-it",
+  "short_name": "Dot-it",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
