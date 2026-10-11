@@ -13,6 +13,12 @@ body {
 	font-family: system-ui, sans-serif;
 }
 
+/* form controls don't inherit font-family by default */
+.ui-panel input,
+.ui-panel button {
+	font-family: inherit;
+}
+
 /* Control sizes scale with screen width (vw units, clamped) */
 
 .ui-file {

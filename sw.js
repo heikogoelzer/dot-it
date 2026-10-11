@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dotit-cache-v1';
+const CACHE_NAME = 'dotit-cache-v2';
 
 // All files the app needs to run offline (relative paths so the app
 // also works when served from a subdirectory).
@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './style.css',
+  './sw.js',
   './mySketch.js',
   './Lou24.png',
   './manifest.json',
