@@ -45,8 +45,12 @@ Then visit <http://localhost:8000>. (A server is required because p5's
 - `mySketch.js` — image loading, gray-range computation, dot rendering,
   and controls.
 - `style.css` — control panel styling (system font, vw-scaled controls).
+  The font is set on `body` because BG/FG/Invert labels are positioned
+  directly on `<body>`, outside the panel.
 - `sw.js` — service worker, **network-first** fetch: fresh assets
   whenever online, cached fallback when offline. The runtime cache
   updates itself, so `CACHE_NAME` only needs bumping for structural
-  changes (e.g. renamed/removed cached files).
+  changes (e.g. renamed/removed cached files). Registered with the
+  relative path `./sw.js` so it also works when the app is served from
+  a subdirectory (GitHub Pages project site `/dot-it/`).
 - `manifest.json` — installable app metadata.
