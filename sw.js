@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dotit-cache-v2';
+const CACHE_NAME = 'dotit-cache-v3';
 
 // All files the app needs to run offline (relative paths so the app
 // also works when served from a subdirectory).
@@ -28,7 +28,7 @@ self.addEventListener('install', (event) => {
         })
       );
       return Promise.all(requests);
-    }).then(() => self.skipWaiting()) // Force the waiting service worker to become active
+    }).then(() => self.skipWaiting()) // Force the waiting SW active
   );
 });
 
@@ -44,19 +44,31 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    }).then(() => self.clients.claim()) // Take control of open pages immediately
+    }).then(() => self.clients.claim()) // Take control immediately
   );
 });
 
-// 3. Fetch Event: Intercept requests and serve from cache if offline
+// 3. Fetch Event: network-first so updates show immediately; fall back
+// to the cache only when offline.
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      // Return the cached file if found, otherwise try the network
-      return cachedResponse || fetch(event.request).catch(() => {
-        // Fallback or error handling if both fail (offline and not cached)
-        console.log('Network failed and asset not in cache:', event.request.url);
-      });
-    })
+    fetch(event.request)
+      .then((response) => {
+        // Keep the cache fresh with successful basic/CORS responses
+        if (response && (response.type === 'basic' ||
+            response.type === 'cors')) {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) =>
+            cache.put(event.request, copy));
+        }
+        return response;
+      })
+      .catch(() =>
+        caches.match(event.request).then((cachedResponse) =>
+          cachedResponse || console.log(
+            'Network failed and asset not in cache:', event.request.url
+          )
+        )
+      )
   );
 });
